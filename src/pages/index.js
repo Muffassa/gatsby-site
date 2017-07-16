@@ -4,6 +4,7 @@ import Helmet from "react-helmet"
 
 export default class Index extends React.Component {
   render() {
+    console.log(this.props.data.allMarkdownRemark.edges);
     return (
       <div>
         <h1>Hi</h1>
@@ -14,3 +15,20 @@ export default class Index extends React.Component {
     )
   }
 }
+
+export const pageQuery = graphql`
+  query IndexQuery {
+      allMarkdownRemark(
+      filter: { frontmatter: {layout: { eq: "post" }}}
+    ) {
+      edges {
+        node {
+          frontmatter {
+            title
+            layout
+          }
+        }
+      }
+    }
+  }
+`
